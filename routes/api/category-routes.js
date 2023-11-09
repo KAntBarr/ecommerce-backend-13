@@ -1,35 +1,34 @@
 const router = require('express').Router();
-const { Category, Product } = require('../../models');
+const { categoryController } = require('../../controllers');
 
 // The `/api/categories` endpoint
 
 router.get('/', async (req, res) => {
   // find all categories
   // be sure to include its associated Products
-  try {
-    const categories = await Category.findAll();
-    return res.json(categories);
-  } catch (error) {
-    return res.status(500);
-  }
+  await categoryController.getCategories(req, res);
 
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
+  await categoryController.getCategoryByID(req, res);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   // create a new category
+  await categoryController.postCategory(req, res);
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   // update a category by its `id` value
+  await categoryController.updateCategory(req, res);
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
+  await categoryController.deleteCategory(req, res);
 });
 
 module.exports = router;
