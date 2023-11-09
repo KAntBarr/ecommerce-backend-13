@@ -37,7 +37,7 @@ async function getTagByID(req, res) {
 
 async function postTag(req, res) {
     try {
-        const tag = await tag.create({
+        const tag = await Tag.create({
             tag_name: req.body.tag_name
         });
         return res.json(tag.toJSON());
@@ -48,13 +48,14 @@ async function postTag(req, res) {
 
 async function updateTag(req, res) {
     try {
-        const tag = await checkTag(req.params.id)
+        let tag = await checkTag(req.params.id)
         tag = await tag.update({
             tag_name: req.body.tag_name
         });
         console.log("updated tag");
-        console.log(tag);
-        tag.push(await Tag.findByPk(req.params.id));
+        tag = await Tag.findByPk(req.params.id, {
+            include: Product
+        });
         return res.json(tag);
     } catch (error) {
         return res.status(500).send("tag does not exist and can't be updated");
@@ -66,7 +67,7 @@ async function deleteTag(req, res) {
         const tag = await checkTag(req.params.id)
         await tag.destroy();
         console.log("deleted tag");
-        console.log(tag);
+        // console.log(tag);
         return res.json(tag);
     } catch (error) {
         return res.status(500).send("tag does not exist and can't be deleted");

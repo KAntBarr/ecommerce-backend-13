@@ -48,13 +48,14 @@ async function postCategory(req, res) {
 
 async function updateCategory(req, res) {
     try {
-        const category = await checkCategory(req.params.id)
+        let category = await checkCategory(req.params.id)
         category = await category.update({
             category_name: req.body.category_name
         });
         console.log("updated category");
-        console.log(category);
-        category.push(await Category.findByPk(req.params.id));
+        category = await Category.findByPk(req.params.id, {
+            include: Product
+        });
         return res.json(category);
     } catch (error) {
         return res.status(500).send("category does not exist and can't be updated");
@@ -66,7 +67,7 @@ async function deleteCategory(req, res) {
         const category = await checkCategory(req.params.id)
         await category.destroy();
         console.log("deleted category");
-        console.log(category);
+        // console.log(category);
         return res.json(category);
     } catch (error) {
         return res.status(500).send("category does not exist and can't be deleted");
