@@ -1,4 +1,4 @@
-const { Tag, Product, ProductTag } = require('../models');
+const { Tag, Product } = require('../models');
 
 async function checkTag(id) {
     try {
