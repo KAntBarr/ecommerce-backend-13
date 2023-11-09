@@ -1,82 +1,82 @@
-const { Category, Product } = require('../models');
+const { Tag, Product, ProductTag } = require('../models');
 
-async function checkCategory(id) {
+async function checkTag(id) {
     try {
-        const category = await Category.findByPk(id);
-            if(!category) {
-                throw new Error("category does not");
+        const tag = await Tag.findByPk(id);
+            if(!tag) {
+                throw new Error("tag does not");
             }
-        return category;
+        return tag;
     } catch (error) {
         throw Error(error);
     }
 }
 
-async function getCategories(req, res) {
+async function getTags(req, res) {
     try {
-        const categories = await Category.findAll({
+        const tag = await Tag.findAll({
             include: Product
         });
-        return res.json(categories);
+        return res.json(tag);
     } catch (error) {
         return res.status(500);
     }
 }
 
-async function getCategoryByID(req, res) {
+async function getTagByID(req, res) {
     try {
-        await checkCategory(req.params.id)
-        const categories = await Category.findByPk(req.params.id, {
+        await checkTag(req.params.id)
+        const tag = await Tag.findByPk(req.params.id, {
             include: Product
         });
-        return res.json(categories);
+        return res.json(tag);
     } catch (error) {
-        return res.status(500).send("category couldn't be found");
+        return res.status(500).send("tag couldn't be found");
     }
 }
 
-async function postCategory(req, res) {
+async function postTag(req, res) {
     try {
-        const category = await Category.create({
-            category_name: req.body.category_name
+        const tag = await tag.create({
+            tag_name: req.body.tag_name
         });
-        return res.json(category.toJSON());
+        return res.json(tag.toJSON());
     } catch (error) {
-        return res.status(500).send("category couldn't be created");
+        return res.status(500).send("tag couldn't be created");
     }
 }
 
-async function updateCategory(req, res) {
+async function updateTag(req, res) {
     try {
-        const category = await checkCategory(req.params.id)
-        category = await category.update({
-            category_name: req.body.category_name
+        const tag = await checkTag(req.params.id)
+        tag = await tag.update({
+            tag_name: req.body.tag_name
         });
-        console.log("updated category");
-        console.log(category);
-        category.push(await Category.findByPk(req.params.id));
-        return res.json(category);
+        console.log("updated tag");
+        console.log(tag);
+        tag.push(await Tag.findByPk(req.params.id));
+        return res.json(tag);
     } catch (error) {
-        return res.status(500).send("category does not exist and can't be updated");
+        return res.status(500).send("tag does not exist and can't be updated");
     }
 }
 
-async function deleteCategory(req, res) {
+async function deleteTag(req, res) {
     try {
-        const category = await checkCategory(req.params.id)
-        await category.destroy();
-        console.log("deleted category");
-        console.log(category);
-        return res.json(category);
+        const tag = await checkTag(req.params.id)
+        await tag.destroy();
+        console.log("deleted tag");
+        console.log(tag);
+        return res.json(tag);
     } catch (error) {
-        return res.status(500).send("category does not exist and can't be deleted");
+        return res.status(500).send("tag does not exist and can't be deleted");
     }
 }
 
 module.exports = {
-    getCategories,
-    getCategoryByID,
-    postCategory,
-    updateCategory,
-    deleteCategory
+    getTags,
+    getTagByID,
+    postTag,
+    updateTag,
+    deleteTag
 }

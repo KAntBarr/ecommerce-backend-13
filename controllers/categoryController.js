@@ -26,10 +26,10 @@ async function getCategories(req, res) {
 async function getCategoryByID(req, res) {
     try {
         await checkCategory(req.params.id)
-        const categories = await Category.findByPk(req.params.id, {
+        const category = await Category.findByPk(req.params.id, {
             include: Product
         });
-        return res.json(categories);
+        return res.json(category);
     } catch (error) {
         return res.status(500).send("category couldn't be found");
     }
