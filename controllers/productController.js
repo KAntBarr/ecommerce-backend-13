@@ -58,7 +58,8 @@ async function postProduct(req, res) {
             product_name: req.body.product_name,
             price: req.body.price,
             stock: req.body.stock,
-            tagIds: req.body.tagIds
+            tagIds: req.body.tagIds,
+            category_id: req.body.category_id
         });
 
         const response = {
@@ -96,7 +97,8 @@ async function updateProduct(req, res) {
             product_name: req.body.product_name,
             price: req.body.price,
             stock: req.body.stock,
-            tagIds: req.body.tagIds
+            tagIds: req.body.tagIds,
+            category_id: req.body.category_id
         });
 
         product = await checkProduct(req.params.id);
@@ -195,7 +197,7 @@ async function updateProduct(req, res) {
 async function deleteProduct(req, res) {
     try {
         const product = await checkProduct(req.params.id)
-        await ProductTag.destroy({ where: { id: [req.params.id] } });
+        // await ProductTag.destroy({ where: { id: [req.params.id] } });
         await product.destroy();
         console.log("deleted product");
         // console.log(product);
