@@ -4,32 +4,32 @@ const { productController } = require('../../controllers');
 // The `/api/products` endpoint
 
 // get all products
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
-  productController.getProducts(req, res);
+  await productController.getProducts(req, res);
 });
 
 // get one product
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
-  productController.getProductByID(req, res);
+  await productController.getProductByID(req, res);
 });
 
 // create new product
-router.post('/', (req, res) => {
-  productController.postProduct(req, res);
+router.post('/', async (req, res) => {
+  await productController.postProduct(req, res);
 });
 
 // update product
-router.put('/:id', (req, res) => {
-  productController.updateProduct(req, res);
+router.put('/:id', async (req, res) => {
+  await productController.updateProduct(req, res);
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
-  productController.deleteProduct(req, res);
+  await productController.deleteProduct(req, res);
 });
 
 module.exports = router;

@@ -4,10 +4,11 @@ async function checkTag(id) {
     try {
         const tag = await Tag.findByPk(id);
             if(!tag) {
-                throw new Error("tag does not");
+                throw new Error("tag does not exist");
             }
         return tag;
     } catch (error) {
+        console.log(error);
         throw Error(error);
     }
 }
@@ -19,6 +20,7 @@ async function getTags(req, res) {
         });
         return res.json(tag);
     } catch (error) {
+        console.log(error);
         return res.status(500);
     }
 }
@@ -31,7 +33,8 @@ async function getTagByID(req, res) {
         });
         return res.json(tag);
     } catch (error) {
-        return res.status(500).send("tag couldn't be found");
+        console.log(error);
+        return res.status(500).send("tag had a problem being found");
     }
 }
 
@@ -42,7 +45,8 @@ async function postTag(req, res) {
         });
         return res.json(tag.toJSON());
     } catch (error) {
-        return res.status(500).send("tag couldn't be created");
+        console.log(error);
+        return res.status(500).send("tag had a problem being created");
     }
 }
 
@@ -58,7 +62,8 @@ async function updateTag(req, res) {
         });
         return res.json(tag);
     } catch (error) {
-        return res.status(500).send("tag does not exist and can't be updated");
+        console.log(error);
+        return res.status(500).send("tag had a problem being updated");
     }
 }
 
@@ -70,7 +75,8 @@ async function deleteTag(req, res) {
         // console.log(tag);
         return res.json(tag);
     } catch (error) {
-        return res.status(500).send("tag does not exist and can't be deleted");
+        console.log(error);
+        return res.status(500).send("tag had a problem being deleted");
     }
 }
 

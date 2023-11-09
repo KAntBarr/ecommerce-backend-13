@@ -4,10 +4,11 @@ async function checkCategory(id) {
     try {
         const category = await Category.findByPk(id);
             if(!category) {
-                throw new Error("category does not");
+                throw new Error("category does not exist");
             }
         return category;
     } catch (error) {
+        console.log(error);
         throw Error(error);
     }
 }
@@ -19,6 +20,7 @@ async function getCategories(req, res) {
         });
         return res.json(categories);
     } catch (error) {
+        console.log(error);
         return res.status(500);
     }
 }
@@ -31,7 +33,8 @@ async function getCategoryByID(req, res) {
         });
         return res.json(category);
     } catch (error) {
-        return res.status(500).send("category couldn't be found");
+        console.log(error);
+        return res.status(500).send("category had a problem being found");
     }
 }
 
@@ -42,7 +45,8 @@ async function postCategory(req, res) {
         });
         return res.json(category.toJSON());
     } catch (error) {
-        return res.status(500).send("category couldn't be created");
+        console.log(error);
+        return res.status(500).send("category had a problem being created");
     }
 }
 
@@ -58,7 +62,8 @@ async function updateCategory(req, res) {
         });
         return res.json(category);
     } catch (error) {
-        return res.status(500).send("category does not exist and can't be updated");
+        console.log(error);
+        return res.status(500).send("category had a problem being updated");
     }
 }
 
@@ -70,7 +75,8 @@ async function deleteCategory(req, res) {
         // console.log(category);
         return res.json(category);
     } catch (error) {
-        return res.status(500).send("category does not exist and can't be deleted");
+        console.log(error);
+        return res.status(500).send("category had a problem being deleted");
     }
 }
 
