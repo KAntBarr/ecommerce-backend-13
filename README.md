@@ -32,7 +32,7 @@ Licensed under the MIT license.
 Users can view, create, update, and delete items such as Categories, Products, and Tags by using API routes.
 
 ## Questions
-Github Username: KantBarr - https://github.com/KantBarr
+Github Username: KAntBarr - https://github.com/KAntBarr
 
 Reach Me: kobybarr.dev@gmail.com
 
